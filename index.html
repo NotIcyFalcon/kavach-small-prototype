@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAVACH — AI Construction Safety Co-Pilot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Optional: Load local API key if present, otherwise uses fallback in animations.js -->
+    <script src="env.js" onerror="console.log('No local env.js found, using fallback key.')"></script>
+</head>
+<body>
+
+    <!-- ═══ FIXED BACKGROUND LAYER (Helix + Fluid) ═══ -->
+    <div id="fixed-background">
+        <div class="ambient-bg">
+            <div class="fluid-layer fluid-1"></div>
+            <div class="fluid-layer fluid-2"></div>
+            <div class="fluid-layer fluid-3"></div>
+            <div class="ambient-noise"></div>
+        </div>
+        
+        <canvas id="spineCanvas"></canvas>
+        <div class="scene-3d" id="helixScene"></div>
+    </div>
+
+    <!-- ═══ NAVIGATION ═══ -->
+    <nav class="nav" id="nav">
+        <div class="logo">KAVACH <span>v3 Concept</span></div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how">How It Works</a>
+            <a href="#demo" class="nav-cta">Try Demo →</a>
+        </div>
+    </nav>
+
+    <!-- ═══ HELIX SPACER ═══ -->
+    <!-- This provides the scrollable height to drive the 3D helix animation -->
+    <section class="helix-spacer" id="helix">
+        <div class="scroll-instruction">Scroll vertically to explore</div>
+    </section>
+
+    <!-- ═══ MAIN CONTENT OVERLAY ═══ -->
+    <!-- This wrapper slides over the fixed background as you scroll past the helix -->
+    <main class="demo-content-wrapper">
+        <div class="overlay-fade"></div> <!-- Gradient transition edge -->
+
+        <!-- HERO (from demo) -->
+        <section class="hero">
+            <div class="hero-grid"></div>
+            <div class="hero-glow-1"></div>
+            <div class="hero-glow-2"></div>
+            <div class="hero-glow-3"></div>
+
+            <div class="hero-badge"><span class="pulse"></span> Kaya AI · IIT India Hackathon · Physical AI Track</div>
+            <h1><span class="gradient">KAVACH</span></h1>
+            <p style="font-size:clamp(18px,2.2vw,28px);font-weight:600;margin-top:8px;position:relative;z-index:1;animation:fadeInUp .8s ease-out .15s both">The AI Construction Co-Pilot</p>
+            <p class="hero-sub">An AI safety assistant on <strong>Meta Smart Glasses</strong> that watches construction sites through the worker's eyes and keeps everyone safe — in real time.</p>
+
+            <div class="hero-cta-group">
+                <a href="#demo" class="btn-primary">🛡️ Try Live Demo</a>
+                <a href="#how" class="btn-secondary">How It Works →</a>
+            </div>
+
+            <div class="hero-visual">
+                <div class="glasses-hud">
+                    <div class="hud-scanline"></div>
+                    <div class="hud-corners"><span></span></div>
+                    <div class="hud-status">
+                        <div class="hud-status-line">KAVACH v1.0 // EDGE AI</div>
+                        <div class="hud-status-line">FPS: 1.0 | MODE: SAFETY</div>
+                        <div class="hud-status-line">WORKER_SELF @ (0,0,0)</div>
+                    </div>
+                    <div class="hud-center-text">
+                        <div class="big">HUD ACTIVE</div>
+                        <div class="small">[ YOLO v8n · MediaPipe · SPARQL KG ]</div>
+                    </div>
+                    <div class="hud-alerts">
+                        <div class="hud-alert-tag">✓ PPE: COMPLIANT</div>
+                        <div class="hud-alert-tag">✓ EDGE: CLEAR</div>
+                        <div class="hud-alert-tag warn">⚠ CRANE: 8m</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section id="features">
+            <div class="section-label reveal">FEATURES</div>
+            <h2 class="section-title reveal reveal-delay-1">Safety & Productivity,<br>unified.</h2>
+            <p class="section-sub reveal reveal-delay-2">KAVACH prioritizes safety above all, then makes workers faster and smarter — all hands-free.</p>
+
+            <div class="features-grid">
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon" style="background:rgba(239,68,68,.1)">🛡️</div>
+                    <h3>Real-Time Hazard Detection</h3>
+                    <p>Edge AI detects fall risks, machinery blind spots, and PPE violations in under 25ms — warns via instant audio alerts.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon" style="background:rgba(34,211,238,.1)">🧠</div>
+                    <h3>Zero-Hallucination Alerts</h3>
+                    <p>Cloud VLM is grounded by a SPARQL Knowledge Graph. Every alert cites an actual OSHA or IS regulation code — never invented.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon" style="background:rgba(16,185,129,.1)">📐</div>
+                    <h3>Hands-Free Blueprints</h3>
+                    <p>Workers ask questions by voice — the VLM queries the BIM model and speaks specs, torque values, and measurements aloud.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon" style="background:rgba(251,191,36,.1)">🔍</div>
+                    <h3>Tool & Inventory Tracking</h3>
+                    <p>Edge memory logs tool positions and material counts. Ask "Where's my drill?" and get an instant spoken answer.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon" style="background:rgba(167,139,250,.1)">📋</div>
+                    <h3>Automated Daily Logs</h3>
+                    <p>Full-day work tracking generates end-of-shift reports automatically. No more 45 minutes of unpaid admin work.</p>
+                </div>
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon" style="background:rgba(255,107,43,.1)">⚡</div>
+                    <h3>Offline Fallback</h3>
+                    <p>No Wi-Fi? Edge AI keeps running geometric heuristic safety checks and pre-recorded warnings. Safety never goes offline.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section id="how">
+            <div class="section-label reveal">ARCHITECTURE</div>
+            <h2 class="section-title reveal reveal-delay-1">Hybrid Edge-Cloud<br>Pipeline</h2>
+            <p class="section-sub reveal reveal-delay-2">Smart filtering saves 98% bandwidth, eliminates hallucinations, and keeps costs near zero.</p>
+
+            <div class="pipeline">
+                <div class="pipe-step reveal reveal-delay-1"><div class="icon">📷</div><div class="label">Meta Glasses</div><div class="name">Capture 1 fps</div></div>
+                <div class="pipe-arrow reveal">→</div>
+                <div class="pipe-step reveal reveal-delay-2"><div class="icon">📱</div><div class="label">Phone Edge</div><div class="name">YOLOv8</div></div>
+                <div class="pipe-arrow reveal">→</div>
+                <div class="pipe-step reveal reveal-delay-3"><div class="icon">🔄</div><div class="label">Filter</div><div class="name">Hash Image Filtering</div></div>
+                <div class="pipe-arrow reveal" style="color:var(--red)">⚠→</div>
+                <div class="pipe-step reveal reveal-delay-4" style="border-color:rgba(255,107,43,.3)"><div class="icon">☁️</div><div class="label">Cloud VLM</div><div class="name">Reason + Rules</div></div>
+                <div class="pipe-arrow reveal">→</div>
+                <div class="pipe-step reveal reveal-delay-4"><div class="icon">🔊</div><div class="label">Output</div><div class="name">Spoken Alert</div></div>
+            </div>
+        </section>
+
+        <!-- DEMO -->
+        <section id="demo">
+            <div class="section-label reveal">LIVE DEMO</div>
+            <h2 class="section-title reveal reveal-delay-1">Try KAVACH's<br><span style="color:var(--orange)">Safety Eye</span></h2>
+            <p class="section-sub reveal reveal-delay-2">Upload any construction site image and watch KAVACH analyze it for safety hazards in real-time.</p>
+
+            <div class="demo-container reveal reveal-delay-3">
+                <div class="demo-layout">
+                    <!-- Left: Image Area -->
+                    <div>
+                        <div class="image-area" id="imageArea" onclick="document.getElementById('fileInput').click()">
+                            <div class="upload-prompt" id="uploadPrompt">
+                                <div class="icon">📸</div>
+                                <h3>Upload a Construction Site Image</h3>
+                                <p>Click to browse, or drag & drop an image here</p>
+                            </div>
+                            <div class="preview-container" id="previewContainer">
+                                <img id="previewImg" alt="Uploaded construction site">
+                                <div class="hud-overlay" id="hudOverlay">
+                                    <div class="scan-bar"></div>
+                                    <div class="hud-badge"><span class="dot"></span> KAVACH EDGE AI — SCANNING</div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*" style="display:none">
+                        <button class="analyze-btn" id="analyzeBtn" onclick="analyzeImage()">🛡️ Analyze for Safety Hazards</button>
+                    </div>
+
+                    <!-- Right: Results Panel -->
+                    <div class="results-panel">
+                        <div class="results-header">
+                            <div class="shield">🛡️</div>
+                            <div><h3>Safety Analysis</h3><div class="status" id="resultStatus">Waiting for image…</div></div>
+                        </div>
+
+                        <div class="risk-meter" id="riskMeter" style="display:none">
+                            <div class="risk-meter-label"><span>Risk Level</span><span class="level" id="riskLabel">—</span></div>
+                            <div class="risk-meter-track"><div class="risk-meter-fill" id="riskFill"></div></div>
+                        </div>
+
+                        <div class="analyzing-state" id="analyzingState">
+                            <div class="spinner"></div>
+                            <p>Analyzing image…</p>
+                            <div class="sub">Edge AI → Cloud VLM → Knowledge Graph</div>
+                        </div>
+
+                        <div class="hazard-list" id="hazardList">
+                            <div class="empty-state" id="emptyState">
+                                <div class="icon">🔍</div>
+                                <p>Upload an image and click<br>"Analyze" to detect hazards</p>
+                            </div>
+                        </div>
+
+                        <div class="audio-alert-bar" id="audioBar" onclick="speakAlert()">
+                            <div class="speaker">🔊</div>
+                            <div class="alert-text" id="audioText">Click to hear the spoken safety alert</div>
+                            <div class="play-hint">▶ Play</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="prototype-disclaimer reveal reveal-delay-4">
+                    <strong>Note:</strong> This live demo is a simplified prototype of the KAVACH vision model. It is designed to showcase the planned pipeline and may occasionally make mistakes or hallucinate details not perfectly aligned with our final Edge+Cloud architecture.
+                </p>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <p><strong style="color:var(--orange)">KAVACH</strong> — AI Construction Safety Co-Pilot</p>
+            <p class="team">Team 404 Team Not Found · Yash Ola · Ronak Maan · Physical AI Track</p>
+        </div>
+    </main>
+
+    <script src="animations.js"></script>
+</body>
+</html>
