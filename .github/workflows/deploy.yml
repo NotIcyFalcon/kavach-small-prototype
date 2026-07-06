@@ -1,25 +1,20 @@
 name: Deploy KAVACH to GitHub Pages
 
-# Runs on pushes targeting the default branch
 on:
   push:
     branches: ["main", "master"]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -30,19 +25,5 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Inject API Key Secret
-        # This creates the env.js file dynamically using your GitHub Secret
         run: |
           echo "window.ENV_GEMINI_API_KEY = '${{ secrets.GEMINI_API_KEY }}';" > env.js
-
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
