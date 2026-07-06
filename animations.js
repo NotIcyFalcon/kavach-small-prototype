@@ -308,6 +308,7 @@ function resetResults() {
 async function analyzeImage() {
   // Use env.js variable if provided, otherwise use the hardcoded fallback secret
   const key = window.ENV_GEMINI_API_KEY;
+  if (!key) throw new Error('API key not found. Make sure the image is valid and the model is accessible.')
   
   if (!currentBase64) { alert('Please upload an image first.'); return; }
 
